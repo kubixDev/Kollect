@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/_50sdp"
+    android:background="@color/darkbrown">
+
+    <TextView
+        android:id="@+id/centeredText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="kollect"
+        android:textColor="@color/whitesmoke"
+        android:fontFamily="@font/leckerlione_regular"
+        android:textSize="@dimen/_25sdp"
+        android:layout_centerInParent="true" />
+
+</RelativeLayout>
