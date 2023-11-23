@@ -5,20 +5,78 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?attr/colorPrimary"
     tools:context=".MainActivity">
 
-    <TextView
-        android:id="@+id/secondFragment"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="SEARCH TEST"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@drawable/rounded_background"
+        android:layout_marginStart="@dimen/_18sdp"
+        android:layout_marginEnd="@dimen/_18sdp"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:backgroundTint="@color/gray"
+        android:id="@+id/searchLayout">
+
+        <ImageView
+            android:layout_height="@dimen/_22sdp"
+            android:layout_width="@dimen/_22sdp"
+            android:src="@drawable/ic_search_icon"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:layout_marginBottom="@dimen/_8sdp"
+            android:layout_marginStart="@dimen/_10sdp"
+            app:tint="@color/lightgray">
+        </ImageView>
+
+        <EditText
+            android:id="@+id/searchBar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:layout_marginBottom="@dimen/_8sdp"
+            android:hint="Search"
+            android:textColorHint="@color/lightgray"
+            android:fontFamily="@font/tommy_regular"
+            android:textSize="@dimen/_17sdp"
+            android:background="@android:color/transparent"
+            android:textColor="@color/whitesmoke"
+            android:inputType="text"
+            android:focusableInTouchMode="true">
+        </EditText>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/exploreLabel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Explore artists"
+        android:layout_marginStart="@dimen/_18sdp"
+        android:layout_marginEnd="@dimen/_18sdp"
+        android:layout_marginTop="@dimen/_25sdp"
         android:textColor="@color/whitesmoke"
-        android:fontFamily="@font/alata_regular"
-        android:textSize="@dimen/_40sdp"
+        android:fontFamily="@font/tommy_medium"
+        android:textSize="@dimen/_30sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/searchLayout" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/artistsRecycler"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/exploreLabel"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:clipToPadding="false"
+        android:layout_marginStart="@dimen/_18sdp"
+        android:layout_marginEnd="@dimen/_18sdp"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:scrollbarStyle="outsideOverlay"
+        android:hapticFeedbackEnabled="true" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
