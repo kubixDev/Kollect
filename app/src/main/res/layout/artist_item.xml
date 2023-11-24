@@ -2,15 +2,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:layout_width="@dimen/_140sdp"
-    android:layout_height="@dimen/_180sdp"
+    android:layout_width="wrap_content"
+    android:layout_height="@dimen/_190sdp"
     android:background="@drawable/rounded_background"
     android:backgroundTint="@color/gray">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_120sdp"
+        android:layout_width="@dimen/_120sdp"
+        android:layout_height="@dimen/_140sdp"
         android:layout_marginTop="@dimen/_10sdp"
         android:layout_marginStart="@dimen/_10sdp"
         android:layout_marginEnd="@dimen/_10sdp"
@@ -20,6 +20,7 @@
             android:id="@+id/imageView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:src="@drawable/testimage"
             android:scaleType="centerCrop">
         </ImageView>
 
