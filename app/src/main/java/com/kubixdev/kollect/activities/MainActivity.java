@@ -1,17 +1,22 @@
-package com.kubixdev.kollect;
+package com.kubixdev.kollect.activities;
 
 import android.os.Bundle;
 import android.view.MenuItem;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.kubixdev.kollect.R;
+import com.kubixdev.kollect.fragments.CollectionFragment;
+import com.kubixdev.kollect.fragments.ExploreFragment;
+import com.kubixdev.kollect.fragments.HomeFragment;
+import com.kubixdev.kollect.fragments.MyProfileFragment;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnItemSelectedListener {
     BottomNavigationView bottomNavigationView;
-    FirstFragment firstFragment = new FirstFragment();
-    SecondFragment secondFragment = new SecondFragment();
-    ThirdFragment thirdFragment = new ThirdFragment();
-    FourthFragment fourthFragment = new FourthFragment();
+    HomeFragment homeFragment = new HomeFragment();
+    ExploreFragment exploreFragment = new ExploreFragment();
+    CollectionFragment collectionFragment = new CollectionFragment();
+    MyProfileFragment myProfileFragment = new MyProfileFragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,28 +34,28 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             case R.id.home:
                 getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.flFragment, firstFragment)
+                        .replace(R.id.flFragment, homeFragment)
                         .commit();
                 return true;
 
             case R.id.search:
                 getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.flFragment, secondFragment)
+                        .replace(R.id.flFragment, exploreFragment)
                         .commit();
                 return true;
 
             case R.id.collection:
                 getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.flFragment, thirdFragment)
+                        .replace(R.id.flFragment, collectionFragment)
                         .commit();
                 return true;
 
             case R.id.profile:
                 getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.flFragment, fourthFragment)
+                        .replace(R.id.flFragment, myProfileFragment)
                         .commit();
                 return true;
         }
