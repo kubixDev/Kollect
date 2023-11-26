@@ -5,20 +5,82 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?attr/colorPrimary"
     tools:context=".MainActivity">
 
     <TextView
-        android:id="@+id/thirdFragment"
-        android:layout_width="wrap_content"
+        android:id="@+id/collectionLabel"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="COLL. TEST"
+        android:text="My collection"
+        android:layout_marginStart="@dimen/_18sdp"
+        android:layout_marginEnd="@dimen/_18sdp"
+        android:layout_marginTop="@dimen/_35sdp"
         android:textColor="@color/whitesmoke"
-        android:fontFamily="@font/alata_regular"
-        android:textSize="@dimen/_40sdp"
+        android:fontFamily="@font/tommy_medium"
+        android:textSize="@dimen/_30sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/selectionGroup"/>
+
+    <RadioGroup
+        android:id="@+id/selectionGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/collectionLabel"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:layout_marginStart="@dimen/_18sdp"
+        android:layout_marginEnd="@dimen/_18sdp"
+        app:layout_constraintBottom_toTopOf="@id/artistsRecycler">
+
+        <RadioButton
+            android:id="@+id/ownedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_10sdp"
+            android:layout_marginRight="@dimen/_10sdp"
+            android:button="@android:color/transparent"
+            android:background="@drawable/collection_selector"
+            android:text="owned"
+            android:textColor="@color/whitesmoke"
+            android:textAlignment="center"
+            android:textSize="@dimen/_15sdp"
+            android:fontFamily="@font/tommy_regular">
+        </RadioButton>
+
+        <RadioButton
+            android:id="@+id/wishlistButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_10sdp"
+            android:button="@android:color/transparent"
+            android:background="@drawable/collection_selector"
+            android:text="wishlist"
+            android:textColor="@color/whitesmoke"
+            android:textAlignment="center"
+            android:textSize="@dimen/_15sdp"
+            android:fontFamily="@font/tommy_regular">
+        </RadioButton>
+    </RadioGroup>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/artistsRecycler"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/selectionGroup"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:clipToPadding="false"
+        android:layout_marginStart="@dimen/_18sdp"
+        android:layout_marginEnd="@dimen/_18sdp"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:scrollbarStyle="outsideOverlay"
+        android:hapticFeedbackEnabled="true" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

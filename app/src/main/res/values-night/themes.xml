@@ -12,7 +12,7 @@
         <item name="colorOnSecondary">@color/brown</item>
 
         <!-- Status bar color -->
-        <item name="android:statusBarColor">?attr/colorSecondaryVariant</item>
+        <item name="android:statusBarColor">?attr/colorPrimary</item>
         <item name="android:windowLightStatusBar">false</item>
 
     </style>
