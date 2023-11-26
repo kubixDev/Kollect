@@ -15,7 +15,7 @@
         android:background="@drawable/rounded_background"
         android:layout_marginStart="@dimen/_18sdp"
         android:layout_marginEnd="@dimen/_18sdp"
-        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_30sdp"
         android:backgroundTint="@color/gray"
         android:id="@+id/searchLayout">
 
