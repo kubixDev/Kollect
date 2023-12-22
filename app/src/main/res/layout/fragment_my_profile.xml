@@ -85,7 +85,25 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/profilePictureCard"
-        app:layout_constraintBottom_toTopOf="@id/wishlistLabel"/>
+        app:layout_constraintBottom_toTopOf="@id/logoutButton"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/logoutButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10sdp"
+        app:layout_constraintTop_toBottomOf="@id/userNameLabel"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@drawable/rounded_background"
+        android:backgroundTint="@color/darkbrown"
+        android:text="Log out"
+        android:textColor="@color/whitesmoke"
+        android:fontFamily="@font/tommy_medium"
+        android:textSize="@dimen/_14sdp"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:textAllCaps="false">
+    </androidx.appcompat.widget.AppCompatButton>
 
     <TextView
         android:id="@+id/wishlistLabel"
@@ -98,7 +116,7 @@
         android:textColor="@color/whitesmoke"
         android:fontFamily="@font/tommy_medium"
         android:textSize="@dimen/_30sdp"
-        app:layout_constraintTop_toBottomOf="@id/userNameLabel"
+        app:layout_constraintTop_toBottomOf="@id/logoutButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
 

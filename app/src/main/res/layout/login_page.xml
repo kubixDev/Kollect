@@ -16,7 +16,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/usernameLayout"
+        app:layout_constraintBottom_toTopOf="@id/emailLayout"
         android:text="kollect"
         android:textColor="@color/whitesmoke"
         android:textSize="@dimen/_45sdp"
@@ -25,7 +25,7 @@
     </TextView>
 
     <LinearLayout
-        android:id="@+id/usernameLayout"
+        android:id="@+id/emailLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -42,7 +42,7 @@
         <ImageView
             android:layout_height="@dimen/_22sdp"
             android:layout_width="@dimen/_22sdp"
-            android:src="@drawable/ic_profile_icon"
+            android:src="@drawable/ic_email_icon"
             android:layout_marginTop="@dimen/_8sdp"
             android:layout_marginBottom="@dimen/_8sdp"
             android:layout_marginStart="@dimen/_10sdp"
@@ -50,14 +50,14 @@
         </ImageView>
 
         <EditText
-            android:id="@+id/usernameInput"
+            android:id="@+id/emailInput"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginStart="@dimen/_10sdp"
             android:layout_marginEnd="@dimen/_10sdp"
             android:layout_marginTop="@dimen/_8sdp"
             android:layout_marginBottom="@dimen/_8sdp"
-            android:hint="username"
+            android:hint="e-mail"
             android:textColorHint="@color/lightgray"
             android:fontFamily="@font/tommy_regular"
             android:textSize="@dimen/_17sdp"
@@ -73,7 +73,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@id/usernameLayout"
+        app:layout_constraintTop_toBottomOf="@id/emailLayout"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/loginButton"
@@ -132,41 +132,37 @@
         android:textAllCaps="false">
     </androidx.appcompat.widget.AppCompatButton>
 
-    <LinearLayout
-        android:id="@+id/alternativeActionLayout"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/signUpLabel"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginStart="@dimen/_18sdp"
-        android:layout_marginEnd="@dimen/_18sdp"
-        app:layout_constraintTop_toBottomOf="@id/loginButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:gravity="center"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/loginButton"
+        app:layout_constraintBottom_toTopOf="@id/switchToSignupButton"
+        android:layout_marginTop="@dimen/_40sdp"
+        android:text="Don't have an account?"
+        android:textColor="@color/whitesmoke"
+        android:textSize="@dimen/_15sdp"
+        android:textAlignment="center"
+        android:fontFamily="@font/tommy_regular">
+    </TextView>
 
-        <TextView
-            android:id="@+id/signUpLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Don't have an account?"
-            android:textColor="@color/whitesmoke"
-            android:textSize="@dimen/_15sdp"
-            android:textAlignment="center"
-            android:fontFamily="@font/tommy_regular">
-        </TextView>
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/switchToSignupButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/signUpLabel"
+        android:backgroundTint="@android:color/transparent"
+        android:text="Sign up"
+        android:textColor="@color/lightbrown"
+        android:fontFamily="@font/tommy_medium"
+        android:textSize="@dimen/_15sdp"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:textAllCaps="false">
+    </androidx.appcompat.widget.AppCompatButton>
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/switchToSignupButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@android:color/transparent"
-            android:text="Sign up"
-            android:textColor="@color/lightbrown"
-            android:fontFamily="@font/tommy_medium"
-            android:textSize="@dimen/_15sdp"
-            style="@style/Widget.AppCompat.Button.Colored"
-            android:textAllCaps="false">
-        </androidx.appcompat.widget.AppCompatButton>
-    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
