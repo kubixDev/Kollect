@@ -12,7 +12,6 @@ import java.util.Map;
 
 public class User {
     private String username;
-    private String email;
     private String accountType;
     private String accountCreationDate;
     private ArrayList<String> ownedPhotocardIds;
@@ -24,11 +23,10 @@ public class User {
     }
 
     // constructor with parameters
-    public User(String username, String email, String accountType, String accountCreationDate,
+    public User(String username, String accountType, String accountCreationDate,
                 ArrayList<String> ownedPhotocardIds, ArrayList<String> wishlistPhotocardIds,
                 ArrayList<String> friendListIds) {
         this.username = username;
-        this.email = email;
         this.accountType = accountType;
         this.accountCreationDate = accountCreationDate;
         this.ownedPhotocardIds = ownedPhotocardIds;
@@ -44,14 +42,6 @@ public class User {
     public void setUsername(String username) {
         this.username = username;
         updateUserData("username", username);
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public String getAccountType() {

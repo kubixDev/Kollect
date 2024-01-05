@@ -105,7 +105,6 @@ public class SignupActivity extends AppCompatActivity {
 
                                 Map<String, Object> user = new HashMap<>();
                                 user.put("username", username);
-                                user.put("email", email);
                                 user.put("accountType", "basic");
                                 user.put("accountCreationDate", getCurrentDate());
                                 user.put("ownedPhotocardIds", new ArrayList<String>());
