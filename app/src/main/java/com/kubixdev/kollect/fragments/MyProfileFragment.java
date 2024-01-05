@@ -45,7 +45,7 @@ public class MyProfileFragment extends Fragment {
             getActivity().finish();
         });
 
-        userNameLabel.setText(currentUserData.getEmail());
+        userNameLabel.setText(currentUserData.getUsername());
 
         // blurs background image
         ImageView backgroundPictureView = view.findViewById(R.id.backgroundPictureView);

@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             @Override
             public void onUserDataLoaded(User user) {
                 myProfileFragment.passUserData(user);
+                collectionFragment.passUserData(user);
             }
 
             @Override
