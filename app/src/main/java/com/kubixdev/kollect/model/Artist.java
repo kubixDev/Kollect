@@ -73,10 +73,39 @@ public class Artist {
                 });
     }
 
+    // static method to retrieve artist names from firestore
+    public static void loadAllArtists(ArtistListLoadListener listener) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        db.collection("artists")
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        ArrayList<String> artistNames = new ArrayList<>();
+
+                        for (DocumentSnapshot document : task.getResult()) {
+                            artistNames.add(document.getId());
+                        }
+
+                        listener.onArtistListLoaded(artistNames);
+                    }
+                    else {
+                        listener.onArtistListLoadFailed("Task failed with exception: " + task.getException());
+                        Log.e("ARTISTINFO", "Task failed with exception: " + task.getException());
+                    }
+                });
+    }
+
 
     // interface for callbacks when artist data is loaded
     public interface ArtistDataLoadListener {
         void onArtistDataLoaded(Artist artist);
         void onArtistDataLoadFailed(String error);
+    }
+
+    // interface for callbacks when artists names are loaded
+    public interface ArtistListLoadListener {
+        void onArtistListLoaded(ArrayList<String> artistNames);
+        void onArtistListLoadFailed(String error);
     }
 }
