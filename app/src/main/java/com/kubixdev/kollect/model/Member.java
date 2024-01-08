@@ -1,10 +1,9 @@
 package com.kubixdev.kollect.model;
 
 import android.util.Log;
-
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import java.util.ArrayList;
 
 public class Member {
@@ -83,22 +82,43 @@ public class Member {
 
                             if (member != null) {
                                 listener.onMemberDataLoaded(member);
-                            }
-                            else {
+                            } else {
                                 listener.onMemberDataLoadFailed("Failed to convert document to Member object");
                                 Log.e("MEMBERINFO", "Failed to convert document to Member object");
                             }
 
-                        }
-                        else {
+                        } else {
                             listener.onMemberDataLoadFailed("No such document");
                             Log.e("MEMBERINFO", "No such document");
                         }
 
-                    }
-                    else {
+                    } else {
                         listener.onMemberDataLoadFailed("Task failed with exception: " + task.getException());
                         Log.e("MEMBERINFO", "Task failed with exception: " + task.getException());
+                    }
+                });
+    }
+
+
+    public static void loadMembersForArtist(String artistName, final Member.MemberListLoadListener listener) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        db.collection("members")
+                .whereEqualTo("artistId", artistName)
+                .orderBy("artistId")
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        ArrayList<String> memberNames = new ArrayList<>();
+
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            memberNames.add(document.getId());
+                        }
+
+                        listener.onMemberListLoaded(memberNames);
+                    } else {
+                        listener.onMemberListLoadFailed("Failed to load members for artist: " + artistName);
+                        Log.e("MEMBERINFO", "Failed to load members for artist: " + artistName);
                     }
                 });
     }
@@ -107,6 +127,14 @@ public class Member {
     // interface for callbacks when member data is loaded
     public interface MemberDataLoadListener {
         void onMemberDataLoaded(Member member);
+
         void onMemberDataLoadFailed(String error);
+    }
+
+    // interface for callbacks when member list is loaded
+    public interface MemberListLoadListener {
+        void onMemberListLoaded(ArrayList<String> memberNames);
+
+        void onMemberListLoadFailed(String error);
     }
 }

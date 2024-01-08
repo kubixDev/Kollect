@@ -9,6 +9,7 @@
     tools:context=".activities.MainActivity">
 
     <LinearLayout
+        android:id="@+id/searchLayoutButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
@@ -16,8 +17,7 @@
         android:layout_marginStart="@dimen/_18sdp"
         android:layout_marginEnd="@dimen/_18sdp"
         android:layout_marginTop="@dimen/_30sdp"
-        android:backgroundTint="@color/gray"
-        android:id="@+id/searchLayout">
+        android:backgroundTint="@color/gray">
 
         <ImageView
             android:layout_height="@dimen/_22sdp"
@@ -29,23 +29,20 @@
             app:tint="@color/lightgray">
         </ImageView>
 
-        <EditText
-            android:id="@+id/searchBar"
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginStart="@dimen/_10sdp"
             android:layout_marginEnd="@dimen/_10sdp"
             android:layout_marginTop="@dimen/_8sdp"
             android:layout_marginBottom="@dimen/_8sdp"
-            android:hint="Search for users"
-            android:textColorHint="@color/lightgray"
+            android:text="Search for users"
             android:fontFamily="@font/tommy_regular"
             android:textSize="@dimen/_17sdp"
             android:background="@android:color/transparent"
-            android:textColor="@color/whitesmoke"
-            android:inputType="text"
+            android:textColor="@color/lightgray"
             android:focusableInTouchMode="true">
-        </EditText>
+        </TextView>
 
     </LinearLayout>
 
@@ -62,7 +59,7 @@
         android:textSize="@dimen/_30sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/searchLayout" />
+        app:layout_constraintTop_toBottomOf="@id/searchLayoutButton" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/artistRecycler"
