@@ -20,7 +20,7 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/backgroundCard"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_110sdp"
+            android:layout_height="@dimen/_120sdp"
             app:cardCornerRadius="12dp"
             android:layout_marginTop="-30dp">
 
@@ -38,16 +38,35 @@
             android:layout_gravity="right"
             android:elevation="2dp">
 
+<!--            <androidx.appcompat.widget.AppCompatButton-->
+<!--                android:id="@+id/settingsButton"-->
+<!--                android:layout_width="@dimen/_25sdp"-->
+<!--                android:layout_height="@dimen/_25sdp"-->
+<!--                android:layout_marginTop="@dimen/_8sdp"-->
+<!--                android:layout_marginEnd="@dimen/_8sdp"-->
+<!--                android:background="@drawable/ic_settings_icon"-->
+<!--                android:backgroundTint="@color/whitesmoke">-->
+<!--            </androidx.appcompat.widget.AppCompatButton>-->
+
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/settingsButton"
-                android:layout_width="@dimen/_25sdp"
-                android:layout_height="@dimen/_25sdp"
-                android:layout_marginTop="@dimen/_8sdp"
-                android:layout_marginEnd="@dimen/_8sdp"
-                android:background="@drawable/ic_settings_icon"
-                android:backgroundTint="@color/whitesmoke">
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginStart="@dimen/_18sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                app:layout_constraintTop_toBottomOf="@id/editProfileButton"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:background="@drawable/rounded_background"
+                android:backgroundTint="@color/gray"
+                android:text="Settings"
+                android:textColor="@color/whitesmoke"
+                android:fontFamily="@font/tommy_medium"
+                android:textSize="@dimen/_12sdp"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:textAllCaps="false">
             </androidx.appcompat.widget.AppCompatButton>
-
         </LinearLayout>
     </FrameLayout>
 
@@ -66,7 +85,8 @@
             android:id="@+id/profilePictureView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scaleType="centerCrop">
+            android:scaleType="centerCrop"
+            android:src="@drawable/placeholderimage">
         </ImageView>
 
     </androidx.cardview.widget.CardView>

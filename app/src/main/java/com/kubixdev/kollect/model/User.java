@@ -14,6 +14,7 @@ public class User {
     private String username;
     private String accountType;
     private String accountCreationDate;
+    private String profileImage;
     private ArrayList<String> ownedPhotocardIds;
     private ArrayList<String> wishlistPhotocardIds;
     private ArrayList<String> friendListIds;
@@ -23,12 +24,13 @@ public class User {
     }
 
     // constructor with parameters
-    public User(String username, String accountType, String accountCreationDate,
+    public User(String username, String accountType, String accountCreationDate, String profileImage,
                 ArrayList<String> ownedPhotocardIds, ArrayList<String> wishlistPhotocardIds,
                 ArrayList<String> friendListIds) {
         this.username = username;
         this.accountType = accountType;
         this.accountCreationDate = accountCreationDate;
+        this.profileImage = profileImage;
         this.ownedPhotocardIds = ownedPhotocardIds;
         this.wishlistPhotocardIds = wishlistPhotocardIds;
         this.friendListIds = friendListIds;
@@ -122,6 +124,14 @@ public class User {
         updateUserData("friendListIds", friendListIds);
     }
 
+    public String getProfileImage() {
+        return profileImage;
+    }
+
+    public void setProfileImage(String profileImage) {
+        this.profileImage = profileImage;
+        updateUserData("profileImage", profileImage);
+    }
 
     // static method to retrieve user data from firestore for any user
     public static void loadUserData(String userId, final UserDataLoadListener listener) {

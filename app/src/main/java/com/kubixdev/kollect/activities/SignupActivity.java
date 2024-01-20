@@ -107,6 +107,7 @@ public class SignupActivity extends AppCompatActivity {
                                 user.put("username", username);
                                 user.put("accountType", "basic");
                                 user.put("accountCreationDate", getCurrentDate());
+                                user.put("profileImage", "default.jpg");
                                 user.put("ownedPhotocardIds", new ArrayList<String>());
                                 user.put("wishlistPhotocardIds", new ArrayList<String>());
                                 user.put("friendListIds", new ArrayList<String>());
