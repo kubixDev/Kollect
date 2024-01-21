@@ -19,23 +19,93 @@
         android:orientation="horizontal">
     </LinearLayout>
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/logoutButton"
-        android:layout_width="wrap_content"
+    <TextView
+        android:id="@+id/settingsLabel"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_10sdp"
-        app:layout_constraintTop_toBottomOf="@id/statusBarFix"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:background="@drawable/rounded_background"
-        android:backgroundTint="@color/darkbrown"
-        android:text="Log out"
+        android:text="Settings"
+        android:layout_marginStart="@dimen/_18sdp"
+        android:layout_marginEnd="@dimen/_18sdp"
+        android:layout_marginTop="@dimen/_35sdp"
         android:textColor="@color/whitesmoke"
         android:fontFamily="@font/tommy_medium"
-        android:textSize="@dimen/_14sdp"
+        android:textSize="@dimen/_35sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/statusBarFix"/>
+
+    <TextView
+        android:id="@+id/accountLabel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Account"
+        android:layout_marginStart="@dimen/_18sdp"
+        android:layout_marginEnd="@dimen/_18sdp"
+        android:layout_marginTop="@dimen/_35sdp"
+        android:textColor="@color/whitesmoke"
+        android:fontFamily="@font/tommy_medium"
+        android:textSize="@dimen/_22sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/settingsLabel"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/editProfileButton"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_50sdp"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_marginStart="@dimen/_18sdp"
+        android:layout_marginEnd="@dimen/_18sdp"
+        app:layout_constraintTop_toBottomOf="@id/accountLabel"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@drawable/rounded_background"
+        android:backgroundTint="@color/gray"
+        android:text="Edit profile details"
+        android:textColor="@color/whitesmoke"
+        android:fontFamily="@font/tommy_regular"
+        android:textSize="@dimen/_16sdp"
         style="@style/Widget.AppCompat.Button.Colored"
         android:textAllCaps="false">
     </androidx.appcompat.widget.AppCompatButton>
 
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/passwordResetButton"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_50sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginStart="@dimen/_18sdp"
+        android:layout_marginEnd="@dimen/_18sdp"
+        app:layout_constraintTop_toBottomOf="@id/editProfileButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@drawable/rounded_background"
+        android:backgroundTint="@color/gray"
+        android:text="Reset password"
+        android:textColor="@color/whitesmoke"
+        android:fontFamily="@font/tommy_regular"
+        android:textSize="@dimen/_16sdp"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:textAllCaps="false">
+    </androidx.appcompat.widget.AppCompatButton>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/logoutButton"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_50sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginStart="@dimen/_18sdp"
+        android:layout_marginEnd="@dimen/_18sdp"
+        app:layout_constraintTop_toBottomOf="@id/passwordResetButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@drawable/rounded_background"
+        android:backgroundTint="@color/darkbrown"
+        android:text="Log out"
+        android:textColor="@color/whitesmoke"
+        android:fontFamily="@font/tommy_regular"
+        android:textSize="@dimen/_16sdp"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:textAllCaps="false">
+    </androidx.appcompat.widget.AppCompatButton>
 </androidx.constraintlayout.widget.ConstraintLayout>
