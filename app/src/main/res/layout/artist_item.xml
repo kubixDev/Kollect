@@ -3,6 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="@dimen/_120sdp"
     android:background="@drawable/rounded_background"
+    android:layout_marginTop="@dimen/_5sdp"
+    android:layout_marginBottom="@dimen/_5sdp"
     android:backgroundTint="@color/gray">
 
     <androidx.cardview.widget.CardView
@@ -30,7 +32,7 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:fontFamily="@font/tommy_medium"
-        android:textSize="@dimen/_30sdp"
+        android:textSize="@dimen/_26sdp"
         android:textColor="@color/whitesmoke"
         android:textAlignment="center"
         android:gravity="center"

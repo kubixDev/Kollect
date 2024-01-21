@@ -80,6 +80,7 @@
         android:layout_marginStart="@dimen/_18sdp"
         android:layout_marginEnd="@dimen/_18sdp"
         android:layout_marginTop="@dimen/_20sdp"
+        android:paddingBottom="@dimen/_10sdp"
         android:scrollbarStyle="outsideOverlay"
         android:hapticFeedbackEnabled="true" />
 

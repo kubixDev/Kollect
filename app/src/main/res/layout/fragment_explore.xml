@@ -56,7 +56,7 @@
         android:layout_marginTop="@dimen/_25sdp"
         android:textColor="@color/whitesmoke"
         android:fontFamily="@font/tommy_medium"
-        android:textSize="@dimen/_30sdp"
+        android:textSize="@dimen/_28sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/searchLayoutButton" />
@@ -73,6 +73,7 @@
         android:layout_marginStart="@dimen/_18sdp"
         android:layout_marginEnd="@dimen/_18sdp"
         android:layout_marginTop="@dimen/_20sdp"
+        android:paddingBottom="@dimen/_10sdp"
         android:scrollbarStyle="outsideOverlay"
         android:hapticFeedbackEnabled="true" />
 
