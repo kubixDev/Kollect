@@ -3,6 +3,7 @@ package com.kubixdev.kollect.model;
 import android.util.Log;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import java.util.ArrayList;
 
 public class Photocard {
     private String artistName;
@@ -81,9 +82,40 @@ public class Photocard {
     }
 
 
+    public static void loadPhotocardsForMember(String memberId, final PhotocardListLoadListener listener) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        db.collection("photocards")
+                .whereEqualTo("memberName", memberId)
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        ArrayList<String> photocardIds = new ArrayList<>();
+
+                        for (DocumentSnapshot document : task.getResult()) {
+                            photocardIds.add(document.getId());
+                        }
+
+                        listener.onPhotocardListLoaded(photocardIds);
+                    }
+                    else {
+                        listener.onPhotocardListLoadFailed("Failed to load photocards for member: " + memberId);
+                        Log.e("PHOTOCARDINFO", "Failed to load photocards for member: " + memberId);
+                    }
+                });
+    }
+
+
     // interface for callbacks when photocard data is loaded
     public interface PhotocardDataLoadListener {
         void onPhotocardDataLoaded(Photocard photocard);
         void onPhotocardDataLoadFailed(String error);
+    }
+
+
+    // interface for callbacks when photocard list is loaded
+    public interface PhotocardListLoadListener  {
+        void onPhotocardListLoaded(ArrayList<String> photocardIds);
+        void onPhotocardListLoadFailed(String error);
     }
 }

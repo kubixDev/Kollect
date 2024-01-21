@@ -14,7 +14,6 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.kubixdev.kollect.R;
 import com.kubixdev.kollect.model.Member;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -23,11 +22,13 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.ViewHolder
     private final Context context;
     private List<String> memberNames;
     private final FirebaseStorage storage;
+    private MemberClickListener memberClickListener;
 
-    public MemberAdapter(Context context, List<String> memberNames) {
+    public MemberAdapter(Context context, List<String> memberNames, MemberClickListener listener) {
         this.context = context;
         this.memberNames = memberNames;
         this.storage = FirebaseStorage.getInstance();
+        this.memberClickListener = listener;
     }
 
     @NonNull
@@ -38,6 +39,9 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.ViewHolder
         return new MemberAdapter.ViewHolder(view);
     }
 
+    public interface MemberClickListener {
+        void onMemberClicked(String memberId);
+    }
 
     @Override
     public void onBindViewHolder(@NonNull MemberAdapter.ViewHolder holder, int position) {
@@ -49,7 +53,7 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.ViewHolder
         // sets member name
         holder.mainText.setText(memberName);
 
-        // retrieves artist details from firestore
+        // retrieves member details from firestore
         Member.loadMemberData(memberName, new Member.MemberDataLoadListener() {
             @Override
             public void onMemberDataLoaded(Member member) {
@@ -67,6 +71,13 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.ViewHolder
             @Override
             public void onMemberDataLoadFailed(String error) {
                 Toast.makeText(context.getApplicationContext(), "Failed to load member data", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+        holder.itemView.setOnClickListener(v -> {
+            if (memberClickListener != null) {
+                memberClickListener.onMemberClicked(memberName);
             }
         });
     }
