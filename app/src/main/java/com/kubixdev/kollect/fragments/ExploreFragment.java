@@ -1,9 +1,12 @@
 package com.kubixdev.kollect.fragments;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,12 +26,14 @@ import java.util.ArrayList;
 
 public class ExploreFragment extends Fragment implements ArtistAdapter.ArtistClickListener, MemberAdapter.MemberClickListener {
     private LinearLayout searchLayoutButton;
+    private FrameLayout loadingOverlay;
     private RecyclerView mainRecycler;
     private TextView exploreLabel;
     private ArtistAdapter artistAdapter;
     private MemberAdapter memberAdapter;
     private PhotocardAdapter photocardAdapter;
     private User currentUserData;
+    private String currentArtist;
 
     public ExploreFragment() {}
 
@@ -43,6 +48,7 @@ public class ExploreFragment extends Fragment implements ArtistAdapter.ArtistCli
         mainRecycler = view.findViewById(R.id.mainRecycler);
         searchLayoutButton = view.findViewById(R.id.searchLayoutButton);
         exploreLabel = view.findViewById(R.id.exploreLabel);
+        loadingOverlay = view.findViewById(R.id.loadingOverlay);
 
         // sets up a grid on recyclerview
         int numberOfColumns = 1;
@@ -84,14 +90,21 @@ public class ExploreFragment extends Fragment implements ArtistAdapter.ArtistCli
                     mainRecycler.setLayoutManager(layoutManager);
 
                     // updates the label above recyclerview
-                    exploreLabel.setText("Explore members");
+                    exploreLabel.setText(currentArtist);
 
+                    // shows and hides the loading overlay
+                    showLoadingOverlay();
+                    hideLoadingOverlayWithDelay();
                 }
 
                 // going back from members to artists
                 else if (mainRecycler.getAdapter() == memberAdapter) {
                     mainRecycler.setAdapter(artistAdapter);
                     exploreLabel.setText("Explore artists");
+
+                    // shows and hides the loading overlay
+                    showLoadingOverlay();
+                    hideLoadingOverlayWithDelay();
                 }
 
                 // going back from artists moves the app to background
@@ -110,16 +123,26 @@ public class ExploreFragment extends Fragment implements ArtistAdapter.ArtistCli
     }
 
     private void updateAdapter() {
+
+        // show loading overlay
+        showLoadingOverlay();
+
         Artist.loadAllArtists(new Artist.ArtistListLoadListener() {
             @Override
             public void onArtistListLoaded(ArrayList<String> artistNames) {
                 artistAdapter.setArtistIds(artistNames);
                 artistAdapter.notifyDataSetChanged();
+
+                // hide loading overlay
+                hideLoadingOverlayWithDelay();
             }
 
             @Override
             public void onArtistListLoadFailed(String error) {
                 Toast.makeText(getContext(), "Failed to load artist names", Toast.LENGTH_SHORT).show();
+
+                // hide loading overlay
+                hideLoadingOverlayWithDelay();
             }
         });
 
@@ -130,18 +153,28 @@ public class ExploreFragment extends Fragment implements ArtistAdapter.ArtistCli
     public void onArtistClicked(String artistName) {
 
         // updates the label above recyclerview
-        exploreLabel.setText("Explore members");
+        exploreLabel.setText(artistName);
+        currentArtist = artistName;
+
+        // show loading overlay
+        showLoadingOverlay();
 
         Member.loadMembersForArtist(artistName, new Member.MemberListLoadListener() {
             @Override
             public void onMemberListLoaded(ArrayList<String> memberIds) {
                 memberAdapter.setMemberIds(memberIds);
                 memberAdapter.notifyDataSetChanged();
+
+                // hide loading overlay
+                hideLoadingOverlayWithDelay();
             }
 
             @Override
             public void onMemberListLoadFailed(String error) {
                 Toast.makeText(getContext(), "Failed to load members", Toast.LENGTH_SHORT).show();
+
+                // hide loading overlay
+                hideLoadingOverlayWithDelay();
             }
         });
 
@@ -149,21 +182,30 @@ public class ExploreFragment extends Fragment implements ArtistAdapter.ArtistCli
     }
 
     @Override
-    public void onMemberClicked(String memberId) {
+    public void onMemberClicked(String memberName) {
 
         // updates the label above recyclerview
-        exploreLabel.setText("Explore photocards");
+        exploreLabel.setText(memberName);
 
-        Photocard.loadPhotocardsForMember(memberId, new Photocard.PhotocardListLoadListener() {
+        // show loading overlay
+        showLoadingOverlay();
+
+        Photocard.loadPhotocardsForMember(memberName, new Photocard.PhotocardListLoadListener() {
             @Override
             public void onPhotocardListLoaded(ArrayList<String> photocardIds) {
                 photocardAdapter.setPhotocardIds(photocardIds);
                 photocardAdapter.notifyDataSetChanged();
+
+                // hide loading overlay
+                hideLoadingOverlayWithDelay();
             }
 
             @Override
             public void onPhotocardListLoadFailed(String error) {
                 Toast.makeText(getContext(), "Failed to load photocards", Toast.LENGTH_SHORT).show();
+
+                // hide loading overlay
+                hideLoadingOverlayWithDelay();
             }
         });
 
@@ -173,5 +215,21 @@ public class ExploreFragment extends Fragment implements ArtistAdapter.ArtistCli
         mainRecycler.setLayoutManager(layoutManager);
 
         mainRecycler.setAdapter(photocardAdapter);
+    }
+
+
+    // helper method to show the loading overlay
+    private void showLoadingOverlay() {
+        loadingOverlay.setVisibility(View.VISIBLE);
+    }
+
+    // helper method to hide the loading overlay
+    private void hideLoadingOverlay() {
+        loadingOverlay.setVisibility(View.GONE);
+    }
+
+    // helper method to hide the loading overlay with delay
+    private void hideLoadingOverlayWithDelay() {
+        new Handler(Looper.getMainLooper()).postDelayed(() -> hideLoadingOverlay(), 900);
     }
 }
