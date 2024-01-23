@@ -3,6 +3,7 @@
     <color name="black">#FF000000</color>
     <color name="almostblack">#1c1b20</color>
     <color name="darkgray">#212529</color>
+    <color name="menubuttongray">#292f32</color>
     <color name="gray">#363d42</color>
     <color name="lightgray">#adb5bd</color>
 

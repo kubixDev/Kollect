@@ -19,20 +19,43 @@
         android:orientation="horizontal">
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/settingsLabel"
+    <LinearLayout
+        android:id="@+id/navigationBar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Settings"
-        android:layout_marginStart="@dimen/_18sdp"
-        android:layout_marginEnd="@dimen/_18sdp"
-        android:layout_marginTop="@dimen/_35sdp"
-        android:textColor="@color/whitesmoke"
-        android:fontFamily="@font/tommy_medium"
-        android:textSize="@dimen/_35sdp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_height="@dimen/_70sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        app:layout_constraintTop_toBottomOf="@id/statusBarFix"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/statusBarFix"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/accountLabel"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/backButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/_15sdp"
+            android:paddingEnd="@dimen/_5sdp"
+            android:paddingTop="@dimen/_15sdp"
+            android:paddingBottom="@dimen/_15sdp"
+            android:layout_marginStart="@dimen/_12sdp"
+            android:src="@drawable/ic_arrow_left_icon"
+            android:layout_gravity="center_vertical"
+            android:scaleX="1.3"
+            android:scaleY="1.3"
+            app:tint="@color/whitesmoke" />
+
+        <TextView
+            android:id="@+id/mainLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Settings"
+            android:textColor="@color/whitesmoke"
+            android:fontFamily="@font/tommy_medium"
+            android:layout_gravity="center_vertical"
+            android:textSize="@dimen/_25sdp" />
+    </LinearLayout>
+
 
     <TextView
         android:id="@+id/accountLabel"
@@ -47,12 +70,13 @@
         android:textSize="@dimen/_22sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/settingsLabel"/>
+        app:layout_constraintTop_toBottomOf="@id/navigationBar"/>
+
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/editProfileButton"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_50sdp"
+        android:layout_height="@dimen/_45sdp"
         android:layout_marginTop="@dimen/_20sdp"
         android:layout_marginStart="@dimen/_18sdp"
         android:layout_marginEnd="@dimen/_18sdp"
@@ -60,7 +84,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:background="@drawable/rounded_background"
-        android:backgroundTint="@color/gray"
+        android:backgroundTint="@color/menubuttongray"
         android:text="Edit profile details"
         android:textColor="@color/whitesmoke"
         android:fontFamily="@font/tommy_regular"
@@ -69,10 +93,11 @@
         android:textAllCaps="false">
     </androidx.appcompat.widget.AppCompatButton>
 
+
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/passwordResetButton"
+        android:id="@+id/passwordChangeButton"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_50sdp"
+        android:layout_height="@dimen/_45sdp"
         android:layout_marginTop="@dimen/_10sdp"
         android:layout_marginStart="@dimen/_18sdp"
         android:layout_marginEnd="@dimen/_18sdp"
@@ -80,8 +105,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:background="@drawable/rounded_background"
-        android:backgroundTint="@color/gray"
-        android:text="Reset password"
+        android:backgroundTint="@color/menubuttongray"
+        android:text="Change password"
         android:textColor="@color/whitesmoke"
         android:fontFamily="@font/tommy_regular"
         android:textSize="@dimen/_16sdp"
@@ -89,21 +114,22 @@
         android:textAllCaps="false">
     </androidx.appcompat.widget.AppCompatButton>
 
+
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/logoutButton"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_50sdp"
+        android:layout_height="@dimen/_45sdp"
         android:layout_marginTop="@dimen/_10sdp"
         android:layout_marginStart="@dimen/_18sdp"
         android:layout_marginEnd="@dimen/_18sdp"
-        app:layout_constraintTop_toBottomOf="@id/passwordResetButton"
+        app:layout_constraintTop_toBottomOf="@id/passwordChangeButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:background="@drawable/rounded_background"
         android:backgroundTint="@color/darkbrown"
         android:text="Log out"
         android:textColor="@color/whitesmoke"
-        android:fontFamily="@font/tommy_regular"
+        android:fontFamily="@font/tommy_medium"
         android:textSize="@dimen/_16sdp"
         style="@style/Widget.AppCompat.Button.Colored"
         android:textAllCaps="false">

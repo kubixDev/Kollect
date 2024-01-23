@@ -6,6 +6,17 @@
     android:layout_height="match_parent"
     android:background="?attr/colorPrimary">
 
+    <LinearLayout
+        android:id="@+id/statusBarFix"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_4sdp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@color/darkbrown"
+        android:orientation="horizontal">
+    </LinearLayout>
+
     <TextView
         android:id="@+id/kollectLabel"
         android:layout_width="match_parent"
@@ -80,7 +91,7 @@
         android:background="@drawable/rounded_background"
         android:layout_marginStart="@dimen/_18sdp"
         android:layout_marginEnd="@dimen/_18sdp"
-        android:layout_marginTop="@dimen/_15sdp"
+        android:layout_marginTop="@dimen/_12sdp"
         android:backgroundTint="@color/gray">
 
         <ImageView
@@ -124,7 +135,7 @@
         android:background="@drawable/rounded_background"
         android:layout_marginStart="@dimen/_18sdp"
         android:layout_marginEnd="@dimen/_18sdp"
-        android:layout_marginTop="@dimen/_15sdp"
+        android:layout_marginTop="@dimen/_12sdp"
         android:backgroundTint="@color/gray">
 
         <ImageView
@@ -168,7 +179,7 @@
         android:background="@drawable/rounded_background"
         android:layout_marginStart="@dimen/_18sdp"
         android:layout_marginEnd="@dimen/_18sdp"
-        android:layout_marginTop="@dimen/_15sdp"
+        android:layout_marginTop="@dimen/_12sdp"
         android:backgroundTint="@color/gray">
 
         <ImageView

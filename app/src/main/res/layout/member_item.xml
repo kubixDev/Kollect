@@ -30,7 +30,7 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:fontFamily="@font/tommy_regular"
-        android:textSize="@dimen/_25sdp"
+        android:textSize="@dimen/_24sdp"
         android:textColor="@color/whitesmoke"
         android:textAlignment="center"
         android:gravity="center"

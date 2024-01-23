@@ -6,6 +6,17 @@
     android:layout_height="match_parent"
     android:background="?attr/colorPrimary">
 
+    <LinearLayout
+        android:id="@+id/statusBarFix"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_4sdp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@color/darkbrown"
+        android:orientation="horizontal">
+    </LinearLayout>
+
     <TextView
         android:id="@+id/kollectLabel"
         android:layout_width="match_parent"
@@ -76,11 +87,11 @@
         app:layout_constraintTop_toBottomOf="@id/emailLayout"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/loginButton"
+        app:layout_constraintBottom_toTopOf="@id/forgotPasswordButton"
         android:background="@drawable/rounded_background"
         android:layout_marginStart="@dimen/_18sdp"
         android:layout_marginEnd="@dimen/_18sdp"
-        android:layout_marginTop="@dimen/_15sdp"
+        android:layout_marginTop="@dimen/_12sdp"
         android:backgroundTint="@color/gray">
 
         <ImageView
@@ -113,13 +124,32 @@
     </LinearLayout>
 
     <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/forgotPasswordButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:layout_marginEnd="@dimen/_13sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/passwordLayout"
+        app:layout_constraintBottom_toTopOf="@id/loginButton"
+        android:backgroundTint="@android:color/transparent"
+        android:text="Forgot password?"
+        android:textColor="@color/lightgray"
+        android:fontFamily="@font/tommy_regular"
+        android:textSize="@dimen/_15sdp"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:textAllCaps="false">
+    </androidx.appcompat.widget.AppCompatButton>
+
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/loginButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_40sdp"
         android:layout_marginEnd="@dimen/_40sdp"
-        android:layout_marginTop="@dimen/_30sdp"
-        app:layout_constraintTop_toBottomOf="@id/passwordLayout"
+        android:layout_marginTop="@dimen/_20sdp"
+        app:layout_constraintTop_toBottomOf="@id/forgotPasswordButton"
+        app:layout_constraintBottom_toTopOf="@id/signUpLabel"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:background="@drawable/rounded_background"
