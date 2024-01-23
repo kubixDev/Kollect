@@ -13,7 +13,7 @@ import com.kubixdev.kollect.R;
 
 public class LoginActivity extends AppCompatActivity {
     EditText emailInput, passwordInput;
-    AppCompatButton loginButton, switchToSignupButton;
+    AppCompatButton loginButton, switchToSignupButton, forgotPasswordButton;
     FirebaseAuth mAuth;
 
     @Override
@@ -41,6 +41,7 @@ public class LoginActivity extends AppCompatActivity {
         passwordInput = findViewById(R.id.passwordInput);
         loginButton = findViewById(R.id.loginButton);
         switchToSignupButton = findViewById(R.id.switchToSignupButton);
+        forgotPasswordButton = findViewById(R.id.forgotPasswordButton);
 
         // handle action after login button click
         loginButton.setOnClickListener(v -> {
@@ -72,6 +73,13 @@ public class LoginActivity extends AppCompatActivity {
         // handle action after alternative sign up button click
         switchToSignupButton.setOnClickListener(v -> {
             Intent intent = new Intent(getApplicationContext(), SignupActivity.class);
+            startActivity(intent);
+            finish();
+        });
+
+        // handle switch to forgot password activity
+        forgotPasswordButton.setOnClickListener(v -> {
+            Intent intent = new Intent(getApplicationContext(), PasswordResetActivity.class);
             startActivity(intent);
             finish();
         });

@@ -45,7 +45,7 @@
             android:screenOrientation="portrait">
         </activity>
 
-        <activity android:name=".activities.ResetPasswordActivity"
+        <activity android:name=".activities.PasswordResetActivity"
             android:exported="true"
             android:screenOrientation="portrait">
         </activity>
