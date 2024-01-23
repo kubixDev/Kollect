@@ -63,10 +63,10 @@ public class SignupActivity extends AppCompatActivity {
         // handle action after signup button click
         signupButton.setOnClickListener(v -> {
             String email, username, password, repeatPassword;
-            email = emailInput.getText().toString();
-            username = usernameInput.getText().toString();
-            password = passwordInput.getText().toString();
-            repeatPassword = repeatPasswordInput.getText().toString();
+            email = emailInput.getText().toString().trim();
+            username = usernameInput.getText().toString().trim();
+            password = passwordInput.getText().toString().trim();
+            repeatPassword = repeatPasswordInput.getText().toString().trim();
 
             // handle empty input fields
             if (TextUtils.isEmpty(email) || TextUtils.isEmpty(username) || TextUtils.isEmpty(password) || TextUtils.isEmpty(repeatPassword)) {
