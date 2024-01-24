@@ -14,7 +14,6 @@ import com.google.firebase.storage.StorageReference;
 import com.kubixdev.kollect.R;
 import com.kubixdev.kollect.model.Photocard;
 import java.io.File;
-import java.io.IOException;
 import java.util.List;
 
 public class PhotocardAdapter extends RecyclerView.Adapter<PhotocardAdapter.ViewHolder> {
@@ -83,23 +82,40 @@ public class PhotocardAdapter extends RecyclerView.Adapter<PhotocardAdapter.View
         StorageReference gsReference = storage.getReference().child("Photocards/" + fileName);
 
         try {
-            // creates a temporary file to store the downloaded image
-            File localFile = File.createTempFile("images", "jpg");
+            File directory = new File(context.getCacheDir(), "images");
+            if (!directory.exists()) {
+                if (!directory.mkdirs()) {
+                    Toast.makeText(context, "Failed to create directory", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+            }
 
-            // downloads the image
-            gsReference.getFile(localFile).addOnSuccessListener(taskSnapshot -> {
+            File localFile = new File(directory, fileName);
 
-                // loads the downloaded image
+            if (localFile.exists()) {
                 Glide.with(context)
                         .load(localFile)
                         .placeholder(R.drawable.placeholderimage)
                         .into(imageView);
+            }
+            else {
+                gsReference.getDownloadUrl().addOnSuccessListener(uri -> {
+                    Glide.with(context)
+                            .load(uri)
+                            .placeholder(R.drawable.placeholderimage)
+                            .into(imageView);
 
-            }).addOnFailureListener(exception -> {
-                Toast.makeText(context.getApplicationContext(), "Failed to download image", Toast.LENGTH_SHORT).show();
-            });
+                    gsReference.getFile(localFile).addOnSuccessListener(taskSnapshot -> {
+                    }).addOnFailureListener(exception -> {
+                        Toast.makeText(context, "Failed to save image locally", Toast.LENGTH_SHORT).show();
+                    });
+
+                }).addOnFailureListener(exception -> {
+                    Toast.makeText(context, "Failed to get download URL", Toast.LENGTH_SHORT).show();
+                });
+            }
         }
-        catch (IOException e) {
+        catch (Exception e) {
             e.printStackTrace();
         }
     }

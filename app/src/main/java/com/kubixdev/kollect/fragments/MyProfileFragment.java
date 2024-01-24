@@ -7,9 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.RecyclerView;
-
 import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.kubixdev.kollect.R;
@@ -19,9 +18,7 @@ import com.kubixdev.kollect.utils.BlurUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.io.File;
-import java.io.IOException;
 
 public class MyProfileFragment extends Fragment {
     AppCompatButton settingsButton;
@@ -45,11 +42,13 @@ public class MyProfileFragment extends Fragment {
         userNameLabel = view.findViewById(R.id.userNameLabel);
         settingsButton = view.findViewById(R.id.settingsButton);
 
-        userNameLabel.setText(currentUserData.getUsername());
+        if (currentUserData != null) {
+            userNameLabel.setText(currentUserData.getUsername());
 
-        // loads and displays profile image
-        profilePictureView = view.findViewById(R.id.profilePictureView);
-        loadProfileImage(currentUserData.getProfileImage());
+            // loads and displays profile image
+            profilePictureView = view.findViewById(R.id.profilePictureView);
+            loadProfileImage(currentUserData.getProfileImage());
+        }
 
         // blurs background image
         backgroundPictureView = view.findViewById(R.id.backgroundPictureView);
@@ -65,27 +64,74 @@ public class MyProfileFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        loadUserData();
+    }
+
+    private void loadUserData() {
+        if (currentUserData != null) {
+            User.loadUserData(FirebaseAuth.getInstance().getCurrentUser().getUid(), new User.UserDataLoadListener() {
+                @Override
+                public void onUserDataLoaded(User user) {
+                    currentUserData = user;
+
+                    // update UI with user data
+                    if (currentUserData != null) {
+                        userNameLabel.setText(currentUserData.getUsername());
+                        loadProfileImage(currentUserData.getProfileImage());
+                    }
+                }
+
+                @Override
+                public void onUserDataLoadFailed(String error) {
+                    Toast.makeText(requireContext(), "Failed to load user data", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+    }
+
     private void loadProfileImage(String fileName) {
         if (fileName != null) {
-            StorageReference gsReference = FirebaseStorage.getInstance().getReference().child("Users/" + fileName);
-
             try {
-                // creates a temporary file to store the downloaded image
-                File localFile = File.createTempFile("images", "jpg");
+                File directory = new File(requireContext().getCacheDir(), "images");
+                if (!directory.exists()) {
+                    if (!directory.mkdirs()) {
+                        Toast.makeText(requireContext(), "Failed to create directory", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                }
 
-                // downloads the image
-                gsReference.getFile(localFile).addOnSuccessListener(taskSnapshot -> {
-                    // loads the downloaded image using Glide
+                // create a temporary file to store the downloaded image
+                File localFile = new File(directory, fileName);
+
+                // if a local file exists, load the image directly
+                if (localFile.exists()) {
                     Glide.with(requireContext())
                             .load(localFile)
                             .placeholder(R.drawable.placeholderimage)
                             .into(profilePictureView);
+                }
+                else {
+                    StorageReference gsReference = FirebaseStorage.getInstance().getReference().child("Users/" + fileName);
 
-                }).addOnFailureListener(exception -> {
-                    Toast.makeText(requireContext(), "Failed to download image", Toast.LENGTH_SHORT).show();
-                });
+                    gsReference.getDownloadUrl().addOnSuccessListener(uri -> {
+                        Glide.with(requireContext())
+                                .load(uri)
+                                .placeholder(R.drawable.placeholderimage)
+                                .into(profilePictureView);
 
-            } catch (IOException e) {
+                        gsReference.getFile(localFile).addOnSuccessListener(taskSnapshot -> {
+                        }).addOnFailureListener(exception -> {
+                            Toast.makeText(requireContext(), "Failed to save image locally", Toast.LENGTH_SHORT).show();
+                        });
+
+                    }).addOnFailureListener(exception -> {
+                        Toast.makeText(requireContext(), "Failed to get download URL", Toast.LENGTH_SHORT).show();
+                    });
+                }
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
