@@ -2,7 +2,6 @@ package com.kubixdev.kollect.utils;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.renderscript.Allocation;
 import android.renderscript.Element;
@@ -40,5 +39,9 @@ public class BlurUtils {
         Bitmap bitmap = drawable.getBitmap();
         Bitmap blurredBitmap = blur(context, bitmap);
         imageView.setImageBitmap(blurredBitmap);
+    }
+
+    public static void unblur(ImageView imageView, Bitmap originalBitmap) {
+        imageView.setImageBitmap(originalBitmap);
     }
 }
