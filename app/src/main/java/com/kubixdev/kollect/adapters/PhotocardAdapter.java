@@ -1,18 +1,25 @@
 package com.kubixdev.kollect.adapters;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.kubixdev.kollect.R;
 import com.kubixdev.kollect.model.Photocard;
+import com.kubixdev.kollect.utils.BlurUtils;
 import java.io.File;
 import java.util.List;
 
@@ -63,6 +70,37 @@ public class PhotocardAdapter extends RecyclerView.Adapter<PhotocardAdapter.View
                 Toast.makeText(context.getApplicationContext(), "Failed to load photocard data", Toast.LENGTH_SHORT).show();
             }
         });
+
+        // set long click listener to handle the visibility of the button layout
+        holder.itemView.setOnLongClickListener(view -> {
+
+            // toggle the visibility of the button layout
+            holder.toggleButtonLayoutVisibility();
+            vibrate(view.getContext());
+            return true;
+        });
+
+        // click listeners for buttons inside the button layout
+        holder.addToCollectionButton.setOnClickListener(v -> {
+                Toast.makeText(context, "Add to collection clicked", Toast.LENGTH_SHORT).show();
+        });
+
+        holder.addToWishlistButton.setOnClickListener(v -> {
+            Toast.makeText(context, "Add to wishlist clicked", Toast.LENGTH_SHORT).show();
+        });
+
+        holder.cancelButton.setOnClickListener(v -> {
+            holder.hideButtonLayout();
+            holder.unblurImage();
+        });
+    }
+
+
+    private void vibrate(Context context) {
+        Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+        if (vibrator != null) {
+            vibrator.vibrate(VibrationEffect.createOneShot(100, VibrationEffect.DEFAULT_AMPLITUDE));
+        }
     }
 
 
@@ -123,10 +161,43 @@ public class PhotocardAdapter extends RecyclerView.Adapter<PhotocardAdapter.View
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         final ImageView imageView;
+        final LinearLayout addPhotocardLayout;
+        final AppCompatButton addToCollectionButton, addToWishlistButton, cancelButton;
+
+        // keeps a reference to the original bitmap
+        private Bitmap originalBitmap;
 
         ViewHolder(View view) {
             super(view);
             imageView = view.findViewById(R.id.imageView);
+            addPhotocardLayout = view.findViewById(R.id.addPhotocardLayout);
+            addToCollectionButton = view.findViewById(R.id.addToCollectionButton);
+            addToWishlistButton = view.findViewById(R.id.addToWishlistButton);
+            cancelButton = view.findViewById(R.id.cancelButton);
+
+            // initially hides the button layout
+            addPhotocardLayout.setVisibility(View.GONE);
+        }
+
+        void toggleButtonLayoutVisibility() {
+            if (addPhotocardLayout.getVisibility() == View.VISIBLE) {
+                hideButtonLayout();
+                unblurImage();
+            }
+            else {
+                addPhotocardLayout.setVisibility(View.VISIBLE);
+                originalBitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
+                BlurUtils.applyBlur(imageView.getContext(), imageView);
+            }
+        }
+
+        void hideButtonLayout() {
+            addPhotocardLayout.setVisibility(View.GONE);
+            unblurImage();
+        }
+
+        void unblurImage() {
+            BlurUtils.unblur(imageView, originalBitmap);
         }
     }
 }
