@@ -230,6 +230,6 @@ public class ExploreFragment extends Fragment implements ArtistAdapter.ArtistCli
 
     // helper method to hide the loading overlay with delay
     private void hideLoadingOverlayWithDelay() {
-        new Handler(Looper.getMainLooper()).postDelayed(() -> hideLoadingOverlay(), 900);
+        new Handler(Looper.getMainLooper()).postDelayed(() -> hideLoadingOverlay(), 500);
     }
 }
