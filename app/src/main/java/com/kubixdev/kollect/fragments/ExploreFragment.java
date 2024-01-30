@@ -63,7 +63,7 @@ public class ExploreFragment extends Fragment implements ArtistAdapter.ArtistCli
         memberAdapter = new MemberAdapter(getContext(), new ArrayList<>(), this);
 
         // initializes the photocardAdapter with an empty list (to be updated later)
-        photocardAdapter = new PhotocardAdapter(getContext(), new ArrayList<>());
+        photocardAdapter = new PhotocardAdapter(getContext(), new ArrayList<>(), 1, false);
 
         // initially loads data when the fragment is created
         updateAdapter();

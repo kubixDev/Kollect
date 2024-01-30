@@ -8,6 +8,8 @@ import android.widget.RadioButton;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.firebase.auth.FirebaseAuth;
 import com.kubixdev.kollect.R;
 import com.kubixdev.kollect.adapters.PhotocardAdapter;
 import com.kubixdev.kollect.model.User;
@@ -17,19 +19,18 @@ public class CollectionFragment extends Fragment {
     private RecyclerView photocardRecycler;
     private PhotocardAdapter photocardAdapter;
     private User currentUserData;
+    RadioButton ownedButton;
+    RadioButton wishlistButton;
 
-    public CollectionFragment() {}
-
-    public void passUserData(User user) {
-        this.currentUserData = user;
+    public CollectionFragment() {
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_collection, container, false);
 
-        RadioButton ownedButton = view.findViewById(R.id.ownedButton);
-        RadioButton wishlistButton = view.findViewById(R.id.wishlistButton);
+        ownedButton = view.findViewById(R.id.ownedButton);
+        wishlistButton = view.findViewById(R.id.wishlistButton);
         photocardRecycler = view.findViewById(R.id.photocardRecycler);
 
         // sets up a grid on recyclerview
@@ -39,10 +40,6 @@ public class CollectionFragment extends Fragment {
 
         // sets a default selection for the radio button group
         ownedButton.setChecked(true);
-
-        // initializes the adapter with an empty list (to be updated later)
-        photocardAdapter = new PhotocardAdapter(getContext(), new ArrayList<>());
-        photocardRecycler.setAdapter(photocardAdapter);
 
         // click listeners
         ownedButton.setOnClickListener(v -> updateAdapter(true));
@@ -55,25 +52,50 @@ public class CollectionFragment extends Fragment {
     }
 
     private void updateAdapter(boolean isOwned) {
-        if (currentUserData != null) {
-            ArrayList<String> photocardIds;
+        User.loadUserData(FirebaseAuth.getInstance().getUid(), new User.UserDataLoadListener() {
+            @Override
+            public void onUserDataLoaded(User user) {
+                currentUserData = user;
 
-            // checks which tab is currently clicked
-            if (isOwned) {
-                photocardIds = currentUserData.getOwnedPhotocardIds();
+                if (currentUserData != null) {
+                    ArrayList<String> photocardIds;
+
+                    // checks which tab is currently clicked
+                    if (isOwned) {
+                        photocardIds = currentUserData.getOwnedPhotocardIds();
+                    }
+                    else {
+                        photocardIds = currentUserData.getWishlistPhotocardIds();
+                    }
+
+                    // initializes the adapter
+                    photocardAdapter = new PhotocardAdapter(getContext(), photocardIds, 2, isWishlistButtonSelected());
+                    photocardRecycler.setAdapter(photocardAdapter);
+
+                    // notifies about a data change (so that it redraws recyclerview)
+                    photocardAdapter.notifyDataSetChanged();
+
+                    // scrolls to the top automatically
+                    photocardRecycler.scrollToPosition(0);
+                }
             }
-            else {
-                photocardIds = currentUserData.getWishlistPhotocardIds();
-            }
 
-            // passes the updated photocard ids to the adapter
-            photocardAdapter.setPhotocardIds(photocardIds);
+            @Override
+            public void onUserDataLoadFailed(String error) {}
+        });
+    }
 
-            // notifies about a data change (so that it redraws recyclerview)
-            photocardAdapter.notifyDataSetChanged();
+    public boolean isWishlistButtonSelected() {
+        return wishlistButton.isChecked();
+    }
 
-            // scrolls to the top automatically
-            photocardRecycler.scrollToPosition(0);
-        }
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        // make sure that ownedButton is selected by default
+        ownedButton.setChecked(true);
+        wishlistButton.setChecked(false);
+        updateAdapter(true);
     }
 }

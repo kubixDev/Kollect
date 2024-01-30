@@ -15,10 +15,13 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.kubixdev.kollect.R;
+import com.kubixdev.kollect.fragments.CollectionFragment;
 import com.kubixdev.kollect.model.Photocard;
+import com.kubixdev.kollect.model.User;
 import com.kubixdev.kollect.utils.BlurUtils;
 import java.io.File;
 import java.util.List;
@@ -27,11 +30,15 @@ public class PhotocardAdapter extends RecyclerView.Adapter<PhotocardAdapter.View
     private final Context context;
     private List<String> photocardIds;
     private final FirebaseStorage storage;
+    private final int fragmentType;
+    private final boolean isWishlistSelected;
 
-    public PhotocardAdapter(Context context, List<String> photocardIds) {
+    public PhotocardAdapter(Context context, List<String> photocardIds, int fragmentType, boolean isWishlistSelected) {
         this.context = context;
         this.photocardIds = photocardIds;
         this.storage = FirebaseStorage.getInstance();
+        this.fragmentType = fragmentType;
+        this.isWishlistSelected = isWishlistSelected;
     }
 
     @NonNull
@@ -82,17 +89,59 @@ public class PhotocardAdapter extends RecyclerView.Adapter<PhotocardAdapter.View
 
         // click listeners for buttons inside the button layout
         holder.addToCollectionButton.setOnClickListener(v -> {
-                Toast.makeText(context, "Add to collection clicked", Toast.LENGTH_SHORT).show();
+            addToCollection(photocardId);
+            holder.hideButtonLayout();
+            holder.unblurImage();
         });
 
         holder.addToWishlistButton.setOnClickListener(v -> {
-            Toast.makeText(context, "Add to wishlist clicked", Toast.LENGTH_SHORT).show();
+            addToWishlist(photocardId);
+            holder.hideButtonLayout();
+            holder.unblurImage();
+        });
+
+        holder.removeButton.setOnClickListener(v -> {
+            remove(photocardId, isWishlistSelected, holder.getAdapterPosition());
+            holder.hideButtonLayout();
+            holder.unblurImage();
+        });
+
+        holder.markAsOwnedButton.setOnClickListener(v -> {
+            markAsOwned(photocardId, holder.getAdapterPosition());
+            holder.hideButtonLayout();
+            holder.unblurImage();
         });
 
         holder.cancelButton.setOnClickListener(v -> {
             holder.hideButtonLayout();
             holder.unblurImage();
         });
+
+        // checks the fragment type to show the correct buttons
+        if (fragmentType == 1) {
+
+            // explore fragment
+            holder.addToCollectionButton.setVisibility(View.VISIBLE);
+            holder.addToWishlistButton.setVisibility(View.VISIBLE);
+            holder.cancelButton.setVisibility(View.VISIBLE);
+            holder.removeButton.setVisibility(View.GONE);
+            holder.markAsOwnedButton.setVisibility(View.GONE);
+        }
+        else if (fragmentType == 2) {
+
+            // collection fragment
+            holder.addToCollectionButton.setVisibility(View.GONE);
+            holder.addToWishlistButton.setVisibility(View.GONE);
+            holder.cancelButton.setVisibility(View.VISIBLE);
+            holder.removeButton.setVisibility(View.VISIBLE);
+
+            if (isWishlistSelected) {
+                holder.markAsOwnedButton.setVisibility(View.VISIBLE);
+            }
+            else {
+                holder.markAsOwnedButton.setVisibility(View.GONE);
+            }
+        }
     }
 
 
@@ -113,6 +162,12 @@ public class PhotocardAdapter extends RecyclerView.Adapter<PhotocardAdapter.View
     public void setPhotocardIds(List<String> photocardIds) {
         this.photocardIds = photocardIds;
         notifyDataSetChanged();
+    }
+
+
+    public void removePhotocard(int position) {
+        photocardIds.remove(position);
+        notifyItemRemoved(position);
     }
 
 
@@ -162,7 +217,7 @@ public class PhotocardAdapter extends RecyclerView.Adapter<PhotocardAdapter.View
     static class ViewHolder extends RecyclerView.ViewHolder {
         final ImageView imageView;
         final LinearLayout addPhotocardLayout;
-        final AppCompatButton addToCollectionButton, addToWishlistButton, cancelButton;
+        final AppCompatButton addToCollectionButton, addToWishlistButton, cancelButton, removeButton, markAsOwnedButton;
 
         // keeps a reference to the original bitmap
         private Bitmap originalBitmap;
@@ -174,6 +229,8 @@ public class PhotocardAdapter extends RecyclerView.Adapter<PhotocardAdapter.View
             addToCollectionButton = view.findViewById(R.id.addToCollectionButton);
             addToWishlistButton = view.findViewById(R.id.addToWishlistButton);
             cancelButton = view.findViewById(R.id.cancelButton);
+            removeButton = view.findViewById(R.id.removeButton);
+            markAsOwnedButton = view.findViewById(R.id.markAsOwnedButton);
 
             // initially hides the button layout
             addPhotocardLayout.setVisibility(View.GONE);
@@ -199,5 +256,84 @@ public class PhotocardAdapter extends RecyclerView.Adapter<PhotocardAdapter.View
         void unblurImage() {
             BlurUtils.unblur(imageView, originalBitmap);
         }
+    }
+
+    // button action methods
+    private void addToCollection(String photocardId) {
+        User.loadUserData(FirebaseAuth.getInstance().getUid(), new User.UserDataLoadListener() {
+            @Override
+            public void onUserDataLoaded(User user) {
+                if (user != null) {
+                    user.addNewOwnedPhotocardId(photocardId);
+                    Toast.makeText(context, "Added to collection", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onUserDataLoadFailed(String error) {
+                Toast.makeText(context, "Failed to load user data", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void addToWishlist(String photocardId) {
+        User.loadUserData(FirebaseAuth.getInstance().getUid(), new User.UserDataLoadListener() {
+            @Override
+            public void onUserDataLoaded(User user) {
+                if (user != null) {
+                    user.addNewWishlistPhotocardId(photocardId);
+                    Toast.makeText(context, "Added to wishlist", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onUserDataLoadFailed(String error) {
+                Toast.makeText(context, "Failed to load user data", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void remove(String photocardId, boolean isWishlistSelected, int position) {
+        User.loadUserData(FirebaseAuth.getInstance().getUid(), new User.UserDataLoadListener() {
+            @Override
+            public void onUserDataLoaded(User user) {
+                if (user != null) {
+                    if (isWishlistSelected) {
+                        user.removeWishlistPhotocardById(photocardId);
+                    }
+                    else {
+                        user.removeOwnedPhotocardById(photocardId);
+                    }
+
+                    removePhotocard(position);
+                    Toast.makeText(context, "Removed", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onUserDataLoadFailed(String error) {
+                Toast.makeText(context, "Failed to load user data", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void markAsOwned(String photocardId, int position) {
+        User.loadUserData(FirebaseAuth.getInstance().getUid(), new User.UserDataLoadListener() {
+            @Override
+            public void onUserDataLoaded(User user) {
+                if (user != null) {
+                    user.addNewOwnedPhotocardId(photocardId);
+                    user.removeWishlistPhotocardById(photocardId);
+                    removePhotocard(position);
+
+                    Toast.makeText(context, "Marked as owned", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onUserDataLoadFailed(String error) {
+                Toast.makeText(context, "Failed to load user data", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
