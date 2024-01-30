@@ -13,4 +13,8 @@
     <color name="darkbrown">#503735</color>
     <color name="brown">#7B6151</color>
     <color name="lightbrown">#9F7E69 </color>
+
+    <color name="red">#9e2a2b </color>
+    <color name="orange">#e36414 </color>
+    <color name="green">#2d6a4f </color>
 </resources>
