@@ -9,9 +9,7 @@ import com.kubixdev.kollect.R;
 
 public class HomeFragment extends Fragment {
 
-    public HomeFragment(){
-        // require an empty public constructor
-    }
+    public HomeFragment(){}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
