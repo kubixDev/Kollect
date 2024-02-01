@@ -10,6 +10,8 @@
 
 This app is currently being developed as a personal project, which I started with the aim of obtaining new skills and organizing my Twice photocards.
 
+<br>
+
 ## Features
 
 Some of the main Kollect features
@@ -19,6 +21,8 @@ Some of the main Kollect features
 * cloud storage, which allows you to show off your collection on any device
 * user search and profile viewing
 * modern and responsive UI design
+
+<br>
 
 ## Technologies
 
@@ -31,23 +35,30 @@ The project uses
 * **SDP library** - provides easier support for different screen sizes
 * **Gradle** - a default build automation tool
 
+<br>
+
 ## Launch
 
 * you need **Android 11 (API level 30) or greater** for the application to work properly
 * for the time being, Kollect is deployed live to a limited group of users
 
+<br>
+
 ## Preview
 
 <p float="left">
-  <img src="https://raw.githubusercontent.com/kubixDev/Kollect/master/readmeImages/preview1.jpg" width="250"/>
-  <img src="https://raw.githubusercontent.com/kubixDev/Kollect/master/readmeImages/preview2.jpg" width="250"/>
+  <kbd> <img src="https://raw.githubusercontent.com/kubixDev/Kollect/master/readmeImages/preview1.jpg" width="250"/> </kbd>
+
+  <kbd> <img src="https://raw.githubusercontent.com/kubixDev/Kollect/master/readmeImages/preview2.jpg" width="250"/> </kbd>
 </p>
 
 <p float="left">
-  <img src="https://raw.githubusercontent.com/kubixDev/Kollect/master/readmeImages/preview3.jpg" width="250"/>
-  <img src="https://raw.githubusercontent.com/kubixDev/Kollect/master/readmeImages/preview4.jpg" width="250"/>
+  <kbd> <img src="https://raw.githubusercontent.com/kubixDev/Kollect/master/readmeImages/preview3.jpg" width="250"/> </kbd>
+
+  <kbd> <img src="https://raw.githubusercontent.com/kubixDev/Kollect/master/readmeImages/preview4.jpg" width="250"/> </kbd>
 </p>
 
+<br>
 
 ## Notice
 
