@@ -48,13 +48,11 @@ The project uses
 
 <p float="left">
   <kbd> <img src="https://raw.githubusercontent.com/kubixDev/Kollect/master/readmeImages/preview1.jpg" width="250"/> </kbd>
-
   <kbd> <img src="https://raw.githubusercontent.com/kubixDev/Kollect/master/readmeImages/preview2.jpg" width="250"/> </kbd>
 </p>
 
 <p float="left">
   <kbd> <img src="https://raw.githubusercontent.com/kubixDev/Kollect/master/readmeImages/preview3.jpg" width="250"/> </kbd>
-
   <kbd> <img src="https://raw.githubusercontent.com/kubixDev/Kollect/master/readmeImages/preview4.jpg" width="250"/> </kbd>
 </p>
 
