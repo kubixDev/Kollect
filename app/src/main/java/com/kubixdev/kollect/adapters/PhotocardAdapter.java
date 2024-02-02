@@ -264,8 +264,16 @@ public class PhotocardAdapter extends RecyclerView.Adapter<PhotocardAdapter.View
             @Override
             public void onUserDataLoaded(User user) {
                 if (user != null) {
-                    user.addNewOwnedPhotocardId(photocardId);
-                    Toast.makeText(context, "Added to collection", Toast.LENGTH_SHORT).show();
+                    if (user.getOwnedPhotocardIds().contains(photocardId)) {
+                        Toast.makeText(context, "Already marked as owned", Toast.LENGTH_SHORT).show();
+                    }
+                    else if (user.getWishlistPhotocardIds().contains(photocardId)) {
+                        Toast.makeText(context, "Already added to wishlist", Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        user.addNewOwnedPhotocardId(photocardId);
+                        Toast.makeText(context, "Added to collection", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
 
@@ -281,8 +289,16 @@ public class PhotocardAdapter extends RecyclerView.Adapter<PhotocardAdapter.View
             @Override
             public void onUserDataLoaded(User user) {
                 if (user != null) {
-                    user.addNewWishlistPhotocardId(photocardId);
-                    Toast.makeText(context, "Added to wishlist", Toast.LENGTH_SHORT).show();
+                    if (user.getOwnedPhotocardIds().contains(photocardId)) {
+                        Toast.makeText(context, "Already marked as owned", Toast.LENGTH_SHORT).show();
+                    }
+                    else if (user.getWishlistPhotocardIds().contains(photocardId)) {
+                        Toast.makeText(context, "Already added to wishlist", Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        user.addNewWishlistPhotocardId(photocardId);
+                        Toast.makeText(context, "Added to wishlist", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
 
@@ -322,11 +338,16 @@ public class PhotocardAdapter extends RecyclerView.Adapter<PhotocardAdapter.View
             @Override
             public void onUserDataLoaded(User user) {
                 if (user != null) {
-                    user.addNewOwnedPhotocardId(photocardId);
-                    user.removeWishlistPhotocardById(photocardId);
-                    removePhotocard(position);
+                    if (user.getOwnedPhotocardIds().contains(photocardId)) {
+                        Toast.makeText(context, "Already marked as owned", Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        user.addNewOwnedPhotocardId(photocardId);
+                        user.removeWishlistPhotocardById(photocardId);
+                        removePhotocard(position);
 
-                    Toast.makeText(context, "Marked as owned", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "Marked as owned", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
 
