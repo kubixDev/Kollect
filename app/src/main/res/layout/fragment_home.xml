@@ -71,7 +71,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/getStartedLabel"
                 app:layout_constraintBottom_toTopOf="@id/footerLabel"
-                android:text="You can browse through available groups and their members in the search panel. \n \nTo add a photocard simply hold down your finger on your desired card and select where would you like to add it. Your owned photocards and wishlist can be found in a dedicated tab. \n \nPersonalise your profile and join the Kollect community!"
+                android:text="You can browse through available groups and their members in the search panel. \n \nTo add a photocard simply hold down your finger on your desired card. Your owned photocards and wishlist can be found in a dedicated tab. \n \nPersonalise your profile and join the Kollect community!"
                 android:textAlignment="center"
                 android:fontFamily="@font/tommy_regular"
                 android:textSize="@dimen/_15sdp"
