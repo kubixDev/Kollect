@@ -1,6 +1,6 @@
 <img src="https://raw.githubusercontent.com/kubixDev/Kollect/master/readmeImages/kollectLogo.png" width="400"/>
 
-[![forthebadge](https://raw.githubusercontent.com/BraveUX/for-the-badge/master/src/images/badges/made-with-java.svg)](https://forthebadge.com) [![forthebadge](https://raw.githubusercontent.com/BraveUX/for-the-badge/master/src/images/badges/built-for-android.svg)](https://forthebadge.com) [![forthebadge](https://raw.githubusercontent.com/BraveUX/for-the-badge/master/src/images/badges/built-with-love.svg)](https://forthebadge.com)
+[![forthebadge](https://raw.githubusercontent.com/kubixDev/Kollect/master/readmeImages/madeWithJavaBadge.svg)](https://forthebadge.com) [![forthebadge](https://raw.githubusercontent.com/kubixDev/Kollect/master/readmeImages/builtForAndroidBadge.svg)](https://forthebadge.com) [![forthebadge](https://raw.githubusercontent.com/kubixDev/Kollect/master/readmeImages/builtWithLoveBadge.svg)](https://forthebadge.com)
 
 ---
 
