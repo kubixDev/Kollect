@@ -38,16 +38,6 @@
             android:layout_gravity="right"
             android:elevation="2dp">
 
-<!--            <androidx.appcompat.widget.AppCompatButton-->
-<!--                android:id="@+id/settingsButton"-->
-<!--                android:layout_width="@dimen/_25sdp"-->
-<!--                android:layout_height="@dimen/_25sdp"-->
-<!--                android:layout_marginTop="@dimen/_8sdp"-->
-<!--                android:layout_marginEnd="@dimen/_8sdp"-->
-<!--                android:background="@drawable/ic_settings_icon"-->
-<!--                android:backgroundTint="@color/whitesmoke">-->
-<!--            </androidx.appcompat.widget.AppCompatButton>-->
-
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/settingsButton"
                 android:layout_width="wrap_content"
@@ -121,19 +111,76 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/wishlistRecycler"
+    <LinearLayout
+        android:id="@+id/ownedPhotocardsLayout"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="@dimen/_90sdp"
+        android:background="@drawable/rounded_background"
+        android:backgroundTint="@color/darkgray"
         app:layout_constraintTop_toBottomOf="@id/wishlistLabel"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/favoriteIdolLayout"
         app:layout_constraintStart_toStartOf="parent"
-        android:clipToPadding="false"
         android:layout_marginStart="@dimen/_18sdp"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:padding="@dimen/_10sdp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/ownedPhotocardsLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="@color/whitesmoke"
+            android:fontFamily="@font/tommy_medium"
+            android:textSize="@dimen/_26sdp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="photocards"
+            android:textColor="@color/lightgray"
+            android:fontFamily="@font/tommy_regular"
+            android:textSize="@dimen/_15sdp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/favoriteIdolLayout"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/_90sdp"
+        android:background="@drawable/rounded_background"
+        android:backgroundTint="@color/darkgray"
+        app:layout_constraintTop_toBottomOf="@id/wishlistLabel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/ownedPhotocardsLayout"
+        android:layout_marginStart="@dimen/_10sdp"
         android:layout_marginEnd="@dimen/_18sdp"
         android:layout_marginTop="@dimen/_20sdp"
-        android:scrollbarStyle="outsideOverlay"
-        android:hapticFeedbackEnabled="true" />
+        android:padding="@dimen/_10sdp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/favoriteIdolLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="@color/whitesmoke"
+            android:fontFamily="@font/tommy_medium"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:autoSizeTextType="uniform"
+            android:autoSizeMinTextSize="@dimen/_11sdp"
+            android:autoSizeMaxTextSize="@dimen/_22sdp"
+            android:autoSizeStepGranularity="@dimen/_1sdp"
+            android:textSize="@dimen/_22sdp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="most collected idol"
+            android:textColor="@color/lightgray"
+            android:fontFamily="@font/tommy_regular"
+            android:textSize="@dimen/_15sdp" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -13,21 +13,28 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.kubixdev.kollect.R;
 import com.kubixdev.kollect.activities.SettingsActivity;
+import com.kubixdev.kollect.model.Photocard;
 import com.kubixdev.kollect.model.User;
 import com.kubixdev.kollect.utils.BlurUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class MyProfileFragment extends Fragment {
     AppCompatButton settingsButton;
-    TextView userNameLabel;
+    TextView userNameLabel, ownedPhotocardsLabel, favoriteIdolLabel;
     ImageView backgroundPictureView;
     ImageView profilePictureView;
 
     // stores current user data taken from main activity (to avoid unnecessary database reads)
     private User currentUserData;
+    private String favoriteIdol = "N/A";
 
     public MyProfileFragment(){}
 
@@ -40,6 +47,8 @@ public class MyProfileFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_my_profile, container, false);
 
         userNameLabel = view.findViewById(R.id.userNameLabel);
+        ownedPhotocardsLabel = view.findViewById(R.id.ownedPhotocardsLabel);
+        favoriteIdolLabel = view.findViewById(R.id.favoriteIdolLabel);
         settingsButton = view.findViewById(R.id.settingsButton);
 
         if (currentUserData != null) {
@@ -68,6 +77,10 @@ public class MyProfileFragment extends Fragment {
     public void onResume() {
         super.onResume();
         loadUserData();
+
+        if (!favoriteIdol.equals("N/A")) {
+            favoriteIdolLabel.setText(favoriteIdol);
+        }
     }
 
     private void loadUserData() {
@@ -81,6 +94,34 @@ public class MyProfileFragment extends Fragment {
                     if (currentUserData != null) {
                         userNameLabel.setText(currentUserData.getUsername());
                         loadProfileImage(currentUserData.getProfileImage());
+
+                        // count owned photocards and find most popular idol
+                        int ownedPhotocardsCount = currentUserData.getOwnedPhotocardIds().size();
+                        ownedPhotocardsLabel.setText(String.valueOf(ownedPhotocardsCount));
+
+                        // load member names
+                        List<String> memberNames = new ArrayList<>();
+                        for (String photocardId : currentUserData.getOwnedPhotocardIds()) {
+                            Photocard.loadPhotocardData(photocardId, new Photocard.PhotocardDataLoadListener() {
+                                @Override
+                                public void onPhotocardDataLoaded(Photocard photocard) {
+                                    if (photocard != null) {
+                                        String memberName = photocard.getMemberName();
+                                        memberNames.add(memberName);
+                                    }
+
+                                    // check if all data has been loaded
+                                    if (memberNames.size() == currentUserData.getOwnedPhotocardIds().size()) {
+                                        updateMostPopularIdol(memberNames);
+                                    }
+                                }
+
+                                @Override
+                                public void onPhotocardDataLoadFailed(String error) {
+                                    Toast.makeText(requireContext(), "Failed to load photocard data", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        }
                     }
                 }
 
@@ -91,6 +132,33 @@ public class MyProfileFragment extends Fragment {
             });
         }
     }
+
+    private void updateMostPopularIdol(List<String> memberNames) {
+
+        // no member names loaded or there are no photocards
+        if (memberNames.isEmpty()) {
+            favoriteIdolLabel.setText("N/A");
+        }
+        else {
+            Map<String, Integer> memberOccurrences = new HashMap<>();
+            for (String memberName : memberNames) {
+                memberOccurrences.put(memberName, memberOccurrences.getOrDefault(memberName, 0) + 1);
+            }
+
+            int maxCount = Collections.max(memberOccurrences.values());
+            long countOfMax = memberOccurrences.values().stream().filter(count -> count == maxCount).count();
+
+            String mostPopularIdol = (countOfMax > 1) ? "N/A" : memberOccurrences.entrySet()
+                    .stream()
+                    .filter(entry -> entry.getValue() == maxCount)
+                    .findFirst()
+                    .map(Map.Entry::getKey)
+                    .orElse("N/A");
+
+            favoriteIdolLabel.setText(mostPopularIdol);
+        }
+    }
+
 
     private void loadProfileImage(String fileName) {
         if (fileName != null) {
