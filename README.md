@@ -19,7 +19,6 @@ Some of the main Kollect features
 * an explore page where you can search for photocards by groups and their individual members
 * ability to save your owned photocards and add missing ones to your wishlist
 * cloud storage, which allows you to show off your collection on any device
-* user search and profile viewing
 * modern and responsive UI design
 
 <br>

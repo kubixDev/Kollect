@@ -9,6 +9,7 @@
     tools:context=".activities.MainActivity">
 
     <LinearLayout
+        android:visibility="gone"
         android:id="@+id/searchLayoutButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -53,10 +54,10 @@
         android:text="Explore artists"
         android:layout_marginStart="@dimen/_18sdp"
         android:layout_marginEnd="@dimen/_18sdp"
-        android:layout_marginTop="@dimen/_25sdp"
+        android:layout_marginTop="@dimen/_35sdp"
         android:textColor="@color/whitesmoke"
         android:fontFamily="@font/tommy_medium"
-        android:textSize="@dimen/_28sdp"
+        android:textSize="@dimen/_30sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/searchLayoutButton" />
