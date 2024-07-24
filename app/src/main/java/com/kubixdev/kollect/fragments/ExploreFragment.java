@@ -68,13 +68,6 @@ public class ExploreFragment extends Fragment implements ArtistAdapter.ArtistCli
         // initially loads data when the fragment is created
         updateAdapter();
 
-        // creates a click listener to run search activity
-//        searchLayoutButton.setOnClickListener(v -> {
-//            Intent intent = new Intent(getContext(), SearchActivity.class);
-//            startActivity(intent);
-//            getActivity().overridePendingTransition(0, 0);
-//        });
-
         // handles back button press functionality on the recyclerview
         OnBackPressedCallback callback = new OnBackPressedCallback(true) {
             @Override

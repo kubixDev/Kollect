@@ -104,6 +104,7 @@ public class SignupActivity extends AppCompatActivity {
                                 final String userId = firebaseUser.getUid();
 
                                 Map<String, Object> user = new HashMap<>();
+                                user.put("userId", userId);
                                 user.put("username", username);
                                 user.put("accountType", "basic");
                                 user.put("accountCreationDate", getCurrentDate());

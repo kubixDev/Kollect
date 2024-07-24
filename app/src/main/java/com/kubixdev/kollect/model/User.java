@@ -3,14 +3,17 @@ package com.kubixdev.kollect.model;
 import android.util.Log;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentId;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class User {
+    private String userId;
     private String username;
     private String accountType;
     private String accountCreationDate;
@@ -24,9 +27,10 @@ public class User {
     }
 
     // constructor with parameters
-    public User(String username, String accountType, String accountCreationDate, String profileImage,
+    public User(String userId, String username, String accountType, String accountCreationDate, String profileImage,
                 ArrayList<String> ownedPhotocardIds, ArrayList<String> wishlistPhotocardIds,
                 ArrayList<String> friendListIds) {
+        this.userId = userId;
         this.username = username;
         this.accountType = accountType;
         this.accountCreationDate = accountCreationDate;
@@ -34,6 +38,10 @@ public class User {
         this.ownedPhotocardIds = ownedPhotocardIds;
         this.wishlistPhotocardIds = wishlistPhotocardIds;
         this.friendListIds = friendListIds;
+    }
+
+    public String getUserId() {
+        return userId;
     }
 
     public String getUsername() {
@@ -194,5 +202,20 @@ public class User {
                 .addOnFailureListener(e -> {
                     // handle failure
                 });
+    }
+
+    // Override equals() and hashCode() methods
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        User user = (User) o;
+        return Objects.equals(userId, user.userId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(userId);
     }
 }
